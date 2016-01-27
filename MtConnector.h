@@ -6,6 +6,7 @@ using namespace System::Xml;
 using namespace System::Collections::Generic;
 using namespace System::IO;
 using namespace System::Text;
+//connects to an MTConnect server and collects position data
 ref class MtConnector
 {
 private:
@@ -23,8 +24,11 @@ public:
 	array<double>^ getPos();
 	void printData();
 	Boolean startPush(String ^ str);
+	//submit a request to an MTconnect server for positon information
+	//
 	void getRequest(String^ str,String^ dataLocation);
-
+	//under the incorrect assumption that MTconnect would open a new connection every so often
+	//
 	
 	void EventHandler(Object^ sender, OpenReadCompletedEventArgs^ e);
 

@@ -38,11 +38,24 @@ public:
 
 	//returns coordinates in inches
 	List<array<double>^> ^  coordinates(String ^fileName,bool convert_to_inches);
-
+	//get the stpnc work plan id following the path of enabled workplans
+	//ie  HARDMOLDY/Profiling/Boeing
+	//Possible problems:
+	//the desired workplan does not exist or is not enabled or a workplan listed in 
+	//in the path does not exist or is not enabled
 	long long getWorkPlanByPath(array<String^>^ nameList,STEPNCLib::Finder ^find);
+	//recurse from a given workplan and get all enabled Workingsteps in all nested
+	//workplans
+	//workingsteps STPNC id are stored in wsList
 	void getAllWorksteps(long long root,STEPNCLib::Finder ^find,List<long long>^ wsList);
+	//given an xml file with a name fileName assuming the xml file adheres to the mtCOnnect 
+	// xlm schema (see mtcup.org) pulls only position data and uses the timestamps on the 
+	//position data to calculate the  
 	List<array<double>^> ^  coordinatesWithTime(String ^fileName,bool convert_to_inches);
+	//get all of the nested enabled working steps in a workplan and return all of the tool
+	//paths in, each nested list represents a WS
 	List<List<long long>^> ^getWSPaths(long long workplan, STEPNCLib::Finder ^find);
+
 	List<List<long long>^> ^ getAllRapidPaths(long long workplan, STEPNCLib::Finder ^find);
 	double actualFeedRate(array<double>^ coor1,array<double>^ coor2);
 	List<double> ^getAllPoints(List<long long>^ paths,STEPNCLib::Finder ^find);
